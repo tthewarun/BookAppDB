@@ -20,7 +20,7 @@ const Book = sequelize.define('Book', {
     },
     image: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     published_date: { 
         type: DataTypes.DATE,
