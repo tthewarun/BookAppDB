@@ -3,34 +3,36 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-const productController = require('../controllers/productController');
+const bookController = require('../controllers/bookController'); // เปลี่ยนจาก productController เป็น bookController
 const router = express.Router();
-//กําหนดโฟลเดอรgสําหรับจัดเก็บไฟลgที่อัพโหลด
+
+// กำหนดโฟลเดอร์สำหรับจัดเก็บไฟล์ที่อัพโหลด
 const upload_path = './public/images';
-// ตรวจสอบวKามีโฟลเดอรg uploads หรือไมK
+// ตรวจสอบว่ามีโฟลเดอร์ uploads หรือไม่
 if (!fs.existsSync(upload_path)) {
-// ถ8าไมKมีให8สร8างใหมK
-fs.mkdirSync(upload_path, { recursive: true });
+    // ถ้าไม่มีให้สร้างใหม่
+    fs.mkdirSync(upload_path, { recursive: true });
 }
-//ตั้งคKา multer สําหรับจัดการไฟลgอัปโหลด
+
+// ตั้งค่า multer สำหรับจัดการไฟล์อัปโหลด
 const storage = multer.diskStorage({
-destination: (req, file, cb) => {
-//กําหนดให8อัพโหลดไปไฟลgไปไว8ที่โฟลเดอรg public/images
-cb(null, 'public/images/');
-},
-filename: (req, file, cb) => {
-//ตั้งชื่อไฟลgโดยใช8วันที่และเวลาปûจจุบัน
-cb(null, Date.now() + path.extname(file.originalname));
-},
+    destination: (req, file, cb) => {
+        // กำหนดให้อัปโหลดไปไฟล์ไปไว้ที่โฟลเดอร์ public/images
+        cb(null, upload_path);
+    },
+    filename: (req, file, cb) => {
+        // ตั้งชื่อไฟล์โดยใช้วันที่และเวลาปัจจุบัน
+        cb(null, Date.now() + path.extname(file.originalname));
+    },
 });
 const upload = multer({ storage: storage });
 
-// กําหนดเส8นทางหรือ url สําหรับเรียกใช8งานแตKละ api
+// กำหนดเส้นทางหรือ URL สำหรับเรียกใช้งานแต่ละ API
+router.post('/books', upload.single('image'), bookController.createBook); // เปลี่ยนเป็น createBook
+router.get('/books', bookController.getAllBooks); // เปลี่ยนเป็น getAllBooks
+// URL สำหรับแก้ไขข้อมูลหนังสือ
+router.put('/books/:bookId', upload.single('image'), bookController.updateBook); // เปลี่ยนจาก :proId เป็น :bookId และฟังก์ชัน
+// URL สำหรับลบข้อมูลหนังสือ
+router.delete('/books/:bookId', bookController.deleteBook); // เปลี่ยนจาก :proId เป็น :bookId และฟังก์ชัน
 
-router.post('/products', upload.single('image'), productController.createProduct);
-router.get('/products', productController.getdata);
-// url สําหรับแก8ไขข8อมูลสินค8า
-router.put('/products/:proId', upload.single('image'), productController.updateProduct);
-// url สําหรับลบข8อมูลสินค8า
-router.delete('/products/:proId', productController.deleteProduct);
 module.exports = router;
