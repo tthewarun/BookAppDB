@@ -6,3 +6,4 @@ dialect: 'postgres',
 });
 
 module.exports = sequelize;
+//เชื่อมต่อฐานข้อมูล
