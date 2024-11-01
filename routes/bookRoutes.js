@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 const bookController = require('../controllers/bookController'); 
+const userController = require('../controllers/userController');
 const router = express.Router();
 
 // กำหนดโฟลเดอร์สำหรับจัดเก็บไฟล์ที่อัพโหลด
@@ -36,3 +37,10 @@ router.put('/books/:bookId', upload.single('image'), bookController.updateBook);
 router.delete('/books/:bookId', bookController.deleteBook); // เปลี่ยนจาก :proId เป็น :bookId และฟังก์ชัน
 
 module.exports = router;
+// User routes
+router.post('/users', userController.createUser);
+router.get('/users', userController.getUsers);
+router.get('/users/:id', userController.getUserById);
+router.put('/users/:id', userController.updateUser);
+
+router.delete('/users/:id', userController.deleteUser);
