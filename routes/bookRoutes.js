@@ -3,7 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-const bookController = require('../controllers/bookController'); // เปลี่ยนจาก productController เป็น bookController
+const bookController = require('../controllers/bookController'); 
 const router = express.Router();
 
 // กำหนดโฟลเดอร์สำหรับจัดเก็บไฟล์ที่อัพโหลด
