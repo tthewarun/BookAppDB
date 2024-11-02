@@ -8,3 +8,4 @@ dialect: 'postgres',
 //เชื่อมต่อฐานข้อมูล
 module.exports = sequelize;
 //เชื่อมต่อฐานข้อมูล
+//เชื่อมต่อฐานข้อมูล
