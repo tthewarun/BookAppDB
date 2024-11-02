@@ -1,4 +1,5 @@
 //เชื่อมต่อฐานข้อมูล
+//เชื่อมต่อฐานข้อมูล
 const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize('book_db_bzrj', 'book_db_bzrj_user', 'VLVcF8YuLfZeDZwgi8NAvNDuXblzNnxh', {
